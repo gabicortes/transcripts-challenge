@@ -1,18 +1,16 @@
-import { Footer, Header, TranscriptText } from "./components";
-import styles from "./App.module.css";
-
-import { useEffect, useState } from "react";
-import axiosInstance from "./getTranscript";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Transcript } from "./components/Transcript";
 
 // TODO: chequear que haya aplicado el overflow auto y aparezca la scroll bar
+// TODO: agregar id
 
 function App() {
   return (
-    <div className={styles.app}>
-      <Header title="CompanyName Transcript Q4 2022" />
-      <TranscriptText />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path='transcripts' element={<Transcript />} />
+      </Routes>
+    </Router>
   );
 }
 
