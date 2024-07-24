@@ -1,26 +1,24 @@
-import { useMemo } from "react";
-import { paginate } from "../../helpers";
 import { Block } from "../../types";
 
 type TranscriptTextProps = {
     blocks?: Block[];
+    playbackTime: number;
 };
 
-export const TranscriptText = ({ blocks }: TranscriptTextProps) => {
-    const paginatedResult = useMemo(() => {
-        if (blocks) {
-            if (blocks.length > 100) { return paginate(blocks, 1, 500) }
-        }
-    }, [blocks]);
+export const TranscriptText = ({
+    blocks,
+    playbackTime,
+}: TranscriptTextProps) => {
+    const test = blocks?.findIndex(
+        (block) => block.start <= playbackTime && block.end >= playbackTime
+    );
 
     // TODO: deberia aplicar la paginacion cuando hago la llamada a la api??
     return (
         <article>
-            {paginatedResult?.paginatedItems?.map((block) => (
+            {blocks?.map((block) => (
                 <p key={`${block.start}-${block.end}`}>{block.text}</p>
             ))}
         </article>
     );
-
-
 };

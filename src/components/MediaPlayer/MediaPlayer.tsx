@@ -3,10 +3,11 @@ import styles from "./MediaPlayer.module.css";
 
 type MediaPlayerProps = {
     audioUrl?: string;
+    onChangeTime: React.Dispatch<React.SetStateAction<number>>
 };
 
-export const MediaPlayer = ({ audioUrl }: MediaPlayerProps) => {
-    const [currentTime, setCurrentTime] = useState(0);
+export const MediaPlayer = ({ audioUrl, onChangeTime }: MediaPlayerProps) => {
+
     const audioRef = useRef<HTMLAudioElement>(null);
 
     useEffect(() => {
@@ -14,7 +15,7 @@ export const MediaPlayer = ({ audioUrl }: MediaPlayerProps) => {
 
         if (audio) {
             const handleTimeUpdate = () => {
-                setCurrentTime(audio.currentTime);
+                onChangeTime(audio.currentTime);
             };
 
             audio.addEventListener("timeupdate", handleTimeUpdate);

@@ -3,10 +3,11 @@ import styles from "./Footer.module.css";
 
 type FooterProps = {
     audioUrl?: string
+    onChangeTime: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const Footer = ({ audioUrl }: FooterProps) => {
+export const Footer = ({ audioUrl, onChangeTime }: FooterProps) => {
     return <div className={styles.wrapper}>
-        <MediaPlayer audioUrl={audioUrl} />
-    </div>;
+        <MediaPlayer audioUrl={audioUrl} onChangeTime={onChangeTime} />
+    </div >
 };
