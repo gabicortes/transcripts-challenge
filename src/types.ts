@@ -1,7 +1,3 @@
-export type TranscriptTextProps = {
-  id?: string;
-};
-
 export type Block = {
   end: number;
   start: number;
