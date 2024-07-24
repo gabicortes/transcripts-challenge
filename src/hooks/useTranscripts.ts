@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../getTranscript";
 import { useParams } from "react-router-dom";
-import { Block, Transcript } from "../types";
+import { Transcript } from "../types";
 
 export const useTranscripts = () => {
   // const { id } = useParams();
@@ -9,14 +9,12 @@ export const useTranscripts = () => {
   const [transcript, setTranscript] = useState<undefined | Transcript>(
     undefined
   );
-  const [blocks, setBlocks] = useState<Block[] | undefined>(undefined);
 
   useEffect(() => {
     const fetchTranscript = async () => {
       try {
         const response = await axiosInstance.get(`/transcripts/${id}`);
         setTranscript(response.data);
-        setBlocks(response.data.blocks);
       } catch (err) {
         console.log(err);
       }
@@ -25,5 +23,5 @@ export const useTranscripts = () => {
     fetchTranscript();
   }, [id]);
 
-  return { transcript, blocks };
+  return { transcript };
 };

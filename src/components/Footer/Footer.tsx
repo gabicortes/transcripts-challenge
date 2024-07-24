@@ -1,8 +1,12 @@
 import { MediaPlayer } from "../MediaPlayer";
 import styles from "./Footer.module.css";
 
-export const Footer = () => {
+type FooterProps = {
+    audioUrl?: string
+}
+
+export const Footer = ({ audioUrl }: FooterProps) => {
     return <div className={styles.wrapper}>
-        <MediaPlayer />
+        <MediaPlayer audioUrl={audioUrl} />
     </div>;
 };

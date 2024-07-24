@@ -1,18 +1,36 @@
-import audioIcon from "../../assets/icons/audioIcon.svg";
-import playIcon from "../../assets/icons/playIcon.svg";
-import moreOptions from "../../assets/icons/moreOptions.svg";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./MediaPlayer.module.css";
 
-export const MediaPlayer = () => {
+type MediaPlayerProps = {
+    audioUrl?: string;
+};
+
+export const MediaPlayer = ({ audioUrl }: MediaPlayerProps) => {
+    const [currentTime, setCurrentTime] = useState(0);
+    const audioRef = useRef<HTMLAudioElement>(null);
+
+    useEffect(() => {
+        const audio = audioRef.current;
+
+        if (audio) {
+            const handleTimeUpdate = () => {
+                setCurrentTime(audio.currentTime);
+            };
+
+            audio.addEventListener("timeupdate", handleTimeUpdate);
+
+            return () => {
+                audio.removeEventListener("timeupdate", handleTimeUpdate);
+            };
+        }
+    }, []);
+
     return (
-        <div className={styles.wrapper}>
-            <img src={playIcon} alt='play' />
-            <span>0:00 / 1:23</span>
-            <progress id="audio" value="80" max="100" className={styles.progressBar}>
-                80%
-            </progress>
-            <img src={audioIcon} alt='audio' />
-            <img src={moreOptions} alt='more options' />
-        </div>
+        <audio
+            className={styles.audioWrapper}
+            controls
+            ref={audioRef}
+            src={audioUrl}
+        />
     );
 };

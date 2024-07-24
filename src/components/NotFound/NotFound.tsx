@@ -1,4 +1,4 @@
-import PageNotFound from '../../assets/icons/pageNotFound.svg'
+import PageNotFound from '../../assets/pageNotFound.svg'
 import styles from './NotFound.module.css'
 
 export const NotFound = () => {
