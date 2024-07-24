@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axiosInstance from "../getTranscript";
 import { useParams } from "react-router-dom";
+import axiosInstance from "../api/getTranscript";
 import { Transcript } from "../types";
 
 export const useTranscripts = () => {

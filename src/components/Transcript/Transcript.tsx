@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import { useTranscripts } from "../../hooks/useTranscripts";
 import { Header } from "../Header";
 import { TranscriptText } from "../TranscriptText";
-import styles from "./Transcript.module.css";
 import { MediaPlayer } from "../MediaPlayer";
+import styles from "./Transcript.module.css";
 
 export const Transcript = () => {
     const [playbackTime, setPlaybackTime] = useState<number | undefined>(
