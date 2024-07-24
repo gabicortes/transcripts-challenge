@@ -6,13 +6,14 @@ import styles from "./Transcript.module.css";
 import { MediaPlayer } from "../MediaPlayer";
 
 export const Transcript = () => {
-    const [playbackTime, setPlaybackTime] = useState(0);
+    const [playbackTime, setPlaybackTime] = useState<number | undefined>(undefined);
     const audioRef = useRef<HTMLAudioElement>(null);
     const { transcript } = useTranscripts();
 
     const seekToTime = (seconds: number) => {
         if (audioRef.current) {
             audioRef.current.currentTime = seconds;
+            setPlaybackTime(seconds)
         }
     };
 

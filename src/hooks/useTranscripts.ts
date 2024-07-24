@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import { Transcript } from "../types";
 
 export const useTranscripts = () => {
-  // const { id } = useParams();
-  const id = "bk168068-93e8-4bb6-b762-dbc57d172111";
+  const { id } = useParams();
+
   const [transcript, setTranscript] = useState<undefined | Transcript>(
     undefined
   );

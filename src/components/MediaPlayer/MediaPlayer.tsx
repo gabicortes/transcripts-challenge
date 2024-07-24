@@ -3,8 +3,8 @@ import styles from "./MediaPlayer.module.css";
 
 type MediaPlayerProps = {
     audioUrl?: string;
-    onChangeTime: React.Dispatch<React.SetStateAction<number>>;
     audioRef: React.RefObject<HTMLAudioElement>;
+    onChangeTime: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 
 export const MediaPlayer = ({
@@ -17,7 +17,8 @@ export const MediaPlayer = ({
 
         if (audio) {
             const handleTimeUpdate = () => {
-                onChangeTime(audio.currentTime);
+                const roundedTime = Math.round(audio.currentTime * 1000) / 1000;
+                onChangeTime(roundedTime);
             };
 
             audio.addEventListener("timeupdate", handleTimeUpdate);

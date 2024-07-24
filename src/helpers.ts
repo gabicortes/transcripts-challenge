@@ -1,18 +1,20 @@
 import { Block } from "./types";
 
 export const binarySearchForPlaybackTime = (
-  blocks: Block[],
-  playbackTime: number
+  playbackTime: number,
+  blocks?: Block[]
 ): number => {
+  if (!blocks) return -1;
+
   let left = 0;
   let right = blocks.length - 1;
 
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
 
-    if (blocks[mid].start <= playbackTime && blocks[mid].end > playbackTime) {
+    if (blocks[mid].start <= playbackTime && playbackTime < blocks[mid].end) {
       return mid;
-    } else if (blocks[mid].end <= playbackTime) {
+    } else if (blocks[mid].start < playbackTime) {
       left = mid + 1;
     } else {
       right = mid - 1;

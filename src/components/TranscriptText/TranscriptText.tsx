@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import { Block } from "../../types";
-import styles from "./TranscriptText.module.css";
 import { binarySearchForPlaybackTime } from "../../helpers";
+import styles from "./TranscriptText.module.css";
 
 type TranscriptTextProps = {
     blocks?: Block[];
-    playbackTime: number;
+    playbackTime: number | undefined;
     seekToTime: (seconds: number) => void;
 };
 
@@ -14,15 +14,21 @@ export const TranscriptText = ({
     playbackTime,
     seekToTime,
 }: TranscriptTextProps) => {
-    const currentBlockIndex =
-        blocks && binarySearchForPlaybackTime(blocks, playbackTime);
+
+    const getCurrentBlock = () => {
+        if (playbackTime === undefined) return -1;
+
+        return binarySearchForPlaybackTime(playbackTime, blocks);
+    }
 
     const handleClick = (seconds: number) => {
         seekToTime(seconds);
     };
 
+    const currentBlockIndex = getCurrentBlock();
+
     return (
-        <article>
+        <article className={styles.wrapper}>
             {blocks?.map((block, index) => (
                 <p
                     className={classNames({
@@ -32,8 +38,10 @@ export const TranscriptText = ({
                     key={`${block.start}-${block.end}`}
                 >
                     {block.text}
-                </p>
-            ))}
-        </article>
+                </p>))
+            }
+        </article >
     );
 };
+
+
