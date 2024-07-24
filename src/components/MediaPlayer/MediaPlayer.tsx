@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styles from "./MediaPlayer.module.css";
 
 type MediaPlayerProps = {
     audioUrl?: string;
-    onChangeTime: React.Dispatch<React.SetStateAction<number>>
+    onChangeTime: React.Dispatch<React.SetStateAction<number>>;
+    audioRef: React.RefObject<HTMLAudioElement>;
 };
 
-export const MediaPlayer = ({ audioUrl, onChangeTime }: MediaPlayerProps) => {
-
-    const audioRef = useRef<HTMLAudioElement>(null);
-
+export const MediaPlayer = ({
+    audioUrl,
+    audioRef,
+    onChangeTime,
+}: MediaPlayerProps) => {
     useEffect(() => {
         const audio = audioRef.current;
 
@@ -27,11 +29,13 @@ export const MediaPlayer = ({ audioUrl, onChangeTime }: MediaPlayerProps) => {
     }, []);
 
     return (
-        <audio
-            className={styles.audioWrapper}
-            controls
-            ref={audioRef}
-            src={audioUrl}
-        />
+        <div className={styles.wrapper}>
+            <audio
+                className={styles.audioWrapper}
+                controls
+                ref={audioRef}
+                src={audioUrl}
+            />
+        </div>
     );
 };

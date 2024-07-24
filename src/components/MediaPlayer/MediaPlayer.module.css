@@ -1,3 +1,16 @@
+.wrapper {
+  background-color: #fbfcfd;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
+  height: 75px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .audioWrapper {
   width: 100%;
   padding: 0 24px;
