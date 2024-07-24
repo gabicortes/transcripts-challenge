@@ -1,4 +1,4 @@
-.wrapper {
-  height: 100vh;
-  padding: 26px 64px 0;
+.textSection {
+  height: calc(100vh - 75px);
+  padding: 50px 0 0 2.5%;
 }

@@ -6,19 +6,21 @@ import styles from "./Transcript.module.css";
 import { MediaPlayer } from "../MediaPlayer";
 
 export const Transcript = () => {
-    const [playbackTime, setPlaybackTime] = useState<number | undefined>(undefined);
+    const [playbackTime, setPlaybackTime] = useState<number | undefined>(
+        undefined
+    );
     const audioRef = useRef<HTMLAudioElement>(null);
     const { transcript } = useTranscripts();
 
     const seekToTime = (seconds: number) => {
         if (audioRef.current) {
             audioRef.current.currentTime = seconds;
-            setPlaybackTime(seconds)
+            setPlaybackTime(seconds);
         }
     };
 
     return (
-        <div className={styles.wrapper}>
+        <>
             <div className={styles.textSection}>
                 <Header title={transcript?.title || "Loading..."} />
                 <TranscriptText
@@ -27,7 +29,11 @@ export const Transcript = () => {
                     seekToTime={seekToTime}
                 />
             </div>
-            <MediaPlayer audioUrl={transcript?.audioUrl} onChangeTime={setPlaybackTime} audioRef={audioRef} />
-        </div>
+            <MediaPlayer
+                audioUrl={transcript?.audioUrl}
+                onChangeTime={setPlaybackTime}
+                audioRef={audioRef}
+            />
+        </>
     );
 };

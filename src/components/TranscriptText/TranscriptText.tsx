@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Block } from "../../types";
 import { binarySearchForPlaybackTime } from "../../helpers";
 import styles from "./TranscriptText.module.css";
@@ -23,31 +23,34 @@ export const TranscriptText = ({
         return binarySearchForPlaybackTime(playbackTime, blocks);
     };
 
-    const handleClick = (index: number, seconds: number) => {
+    const handleClick = (seconds: number) => {
         seekToTime(seconds);
-        if (virtuosoRef.current) {
-            virtuosoRef.current.scrollToIndex({
-                index,
-                align: 'start',
-                behavior: 'smooth'
-            });
-        }
     };
 
     const currentBlockIndex = getCurrentBlock();
 
+    useEffect(() => {
+        if (virtuosoRef.current) {
+            virtuosoRef.current.scrollToIndex({
+                index: currentBlockIndex,
+                align: 'center',
+                behavior: 'smooth'
+            });
+        }
+    }, [currentBlockIndex])
+
     return (
-        <article className={styles.wrapper}>
+        <article>
             {blocks && (
                 <Virtuoso
                     ref={virtuosoRef}
                     data={blocks}
                     itemContent={(index, block) => (
                         <p
-                            className={classNames({
+                            className={classNames(styles.line, {
                                 [styles.highlight]: index === currentBlockIndex,
                             })}
-                            onClick={() => handleClick(index, block.start)}
+                            onClick={() => handleClick(block.start)}
                             key={`${block.start}-${block.end}`}
                         >
                             {block.text}
